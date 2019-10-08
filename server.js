@@ -2,6 +2,9 @@ const http = require('http'),
   fs = require('fs'),
   url = require('url');
 
+const hostname = '127.0.0.1';
+const port = 8080;
+
 http.createServer((request, response) => {
   var addr = request.url,
     q = url.parse(addr, true),
