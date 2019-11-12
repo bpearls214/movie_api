@@ -1,0 +1,54 @@
+/* Colors used
+Background color (light grey): #e3e3e3
+Text color (Black): #000
+Button/Modal Border (blue): #1e31e3
+Button/Modal Background (light blue): #e8eafc
+*/
+
+/* ===Primary=== */
+
+body {
+  background-color: #FFFFFF;
+  font-family: 'Karla', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  text-transform: none;
+  color: #000;
+}
+
+.h1 {
+  font-family: 'Karla', sans-serif;
+  font-size: 25px;
+}
+
+th {
+  font-family: 'Karla', sans-serif;
+  font-size: 20px;
+}
+
+/* --divs-- */
+
+div {
+  padding: 10px;
+  margin: 10px;
+}
+
+/* ==Header== */
+
+header {
+  width: 100%;
+  padding: 20px;
+}
+
+/* --table style-- */
+table, th, td {
+  border: 1px solid black;
+  text-align: center;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+#json_obj {
+  text-align: left;
+}

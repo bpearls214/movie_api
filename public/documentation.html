@@ -3,7 +3,9 @@
   <head>
   <meta charset="utf-8">
   <meta name="viewport">
-  <title> Cinema API </title>
+  <title> cineMe API </title>
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,400i&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/styles.css"/>
   </head>
   <body>
     <div>
@@ -15,5 +17,139 @@
         list of Favorites.  CineMe is responsive and can be used anywhere, on any device and provides all users with the same experience.
       </p>
       </div>
+      <div>
+        <table class="table" style="width: 1000px;">
+      <thead>
+        <tr>
+          <th style="width: 120px;">Request</th>
+          <th>URL</th>
+          <th>HTTP Method</th>
+          <th>Request Body Data Format</th>
+          <th style="width: 120px;">Response Body Data Format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Get a list of ALL movies to the user</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding data about all the movies</td>
+        </tr>
+        <tr>
+          <td>Get data about a single movie by title</td>
+          <td>/movies/[Title]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td id="json_obj">A JSON object holding data about a single movie, containing a
+            title, description, genre property, director property and image.
+            Example: <p style="color:green">
+              {</br>
+                <strong>"Name":</strong>  "Charlie's Angel",</br>
+                <strong>"Description":</strong>  "When a young systems engineer blows the whistle on a dangerous technology, Charlie's Angels are called into action, putting their lives on the line to protect us all.",</br>
+                <strong>"comedyLevel":</strong>  "Yet to be determined",</br>
+                <strong>"Director":</strong>  "Elizabeth Banks",</br>
+               }
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Get data about a movie genre</td>
+          <td>/genres/[Name]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td id="json_obj">A JSON object holding data about a movie genre.
+            Example: <p style="color:green">
+              {</br>
+                 <strong> name:</strong> 'Comedy', </br>
+                 <strong> description:</strong> A comedy film is a genre of film in which the main emphasis is
+                 on humour. These films are designed to make the audience laugh through amusement and most often
+                 work by exaggerating characteristics for humorous effect.',</br>
+                 <strong> comedyLevel:</strong> 'literally comedy'
+               }
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Get data about a director</td>
+          <td>/directors/[Name]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td id="json_obj">A JSON object holding data about a director.
+            Example: <p style="color:green">
+              {</br>
+                <strong>name:</strong> 'James Cameron',</br>
+                <strong>born:</strong> 'August 16, 1954'</br>
+              },
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Add new user accounts</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td id="json_obj">A JSON object holding data about the user to add, structured like:
+            <p style="color: green">
+              {</br>
+                <strong>Username:</strong> "moviebuff74",</br>
+                <strong>Password:</strong> "securepassword89",</br>
+                <strong>Email:</strong> "example123456@gmail.com",</br>
+                <strong>Birthday:</strong> "1974-02-14"</br>
+              }
+            </p>
+          </td>
+          <td id="json_obj">A JSON object holding data about the user that was added, including an ID:
+            <p style="color:green">
+              {</br>
+                <strong>id:</strong> "5d9d82069bc166069f68524d",</br>
+                <strong>FavoriteMovies:</strong>[ ],</br>
+                <strong>Username:</strong> "moviebuff74",</br>
+                <strong>Password:</strong> "securepassword89",</br>
+                <strong>Email:</strong> "example123456@gmail.com",</br>
+                <strong>Birthday:</strong> "1974-02-14"</br>
+              }
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Update a user's information</td>
+          <td>/users/[Username]</td>
+          <td>PUT</td>
+          <td id="json_obj">A JSON object holding data about the user to add, structured like:
+            <p style="color: green">
+              {</br>
+                <strong>Username:</strong> "Newusername123156",</br>
+                <strong>Password:</strong> "Newpassword34",</br>
+                <strong>Email:</strong> "Newemail@gmail.com",</br>
+                <strong>Birthday:</strong> "1986-12-25"</br>
+              }
+            </p>
+          </td>
+          <td>A text message indicating the user's information was updated</td>
+        </tr>
+        <tr>
+          <td>Add movies to user's list of favorites</td>
+          <td>/users/[Username]/Movies/[MovieID]</td>
+          <td>POST</td>
+          <td>None</td>
+          <td>A message indicating the movie was added to the user's list of favorites</td>
+        </tr>
+        <tr>
+          <td>Remove movies from user's list of favorites</td>
+          <td>/users/[Username]/Movies/[MovieID]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>A message indicating the movie was removed from the user's list of favorites</td>
+        </tr>
+        <tr>
+          <td>Remove user accounts</td>
+          <td>/users/[Username]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>A message indicating the user's account was deleted</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
     </body>
   </html>
