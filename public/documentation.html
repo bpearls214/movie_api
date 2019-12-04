@@ -42,14 +42,18 @@
           <td>GET</td>
           <td>None</td>
           <td id="json_obj">A JSON object holding data about a single movie, containing a
-            title, description, genre property, director property and image.
-            Example: <p style="color:green">
-              {</br>
-                <strong>"Name":</strong>  "Charlie's Angel",</br>
-                <strong>"Description":</strong>  "When a young systems engineer blows the whistle on a dangerous technology, Charlie's Angels are called into action, putting their lives on the line to protect us all.",</br>
-                <strong>"comedyLevel":</strong>  "Yet to be determined",</br>
-                <strong>"Director":</strong>  "Elizabeth Banks",</br>
-               }
+            unique ID, title, description, genre by ID, director by ID, image, featured status
+            and comedy rating. Example: <p style="color:green">
+              {
+                <strong>Genre:</strong> ["5de14a8d86ce3c11454e5d84"],
+                <strong>Director:</strong> ["5de14bc586ce3c11454e5d87"],
+                <strong>_id:</strong> "5de4584e86ce3c11454e5d8e",
+                <strong>Description:</strong> "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.",
+                <strong>ImageUrl:</strong> "titanic.png",
+                <strong>ComedyRating:</strong> "People fight over doors ability to support more than one person",
+                <strong>Featured:</strong> true,
+                <strong>Title:</strong> "Titanic"
+              },
             </p>
           </td>
         </tr>
@@ -61,11 +65,10 @@
           <td id="json_obj">A JSON object holding data about a movie genre.
             Example: <p style="color:green">
               {</br>
-                 <strong> name:</strong> 'Comedy', </br>
-                 <strong> description:</strong> A comedy film is a genre of film in which the main emphasis is
+                 <strong>Name:</strong> 'Comedy', </br>
+                 <strong> Description:</strong> A comedy film is a genre of film in which the main emphasis is
                  on humour. These films are designed to make the audience laugh through amusement and most often
                  work by exaggerating characteristics for humorous effect.',</br>
-                 <strong> comedyLevel:</strong> 'literally comedy'
                }
             </p>
           </td>
@@ -78,8 +81,8 @@
           <td id="json_obj">A JSON object holding data about a director.
             Example: <p style="color:green">
               {</br>
-                <strong>name:</strong> 'James Cameron',</br>
-                <strong>born:</strong> 'August 16, 1954'</br>
+                <strong>Name:</strong> 'James Cameron',</br>
+                <strong>Born:</strong> 'August 16, 1954'</br>
               },
             </p>
           </td>
@@ -95,6 +98,12 @@
                 <strong>Password:</strong> "securepassword89",</br>
                 <strong>Email:</strong> "example123456@gmail.com",</br>
                 <strong>Birthday:</strong> "1974-02-14"</br>
+                <strong>Address:</strong> {
+                  <strong>Street:</strong> "12345 Hooligan Lane",</br>
+                  <strong>City:</strong> "Fun City"</br>
+                  <strong>State:</strong> "CA",</br>
+                },</br>
+                <strong>SavedMovies</strong> [ObjectID("12345")],</br>
               }
             </p>
           </td>
@@ -102,11 +111,16 @@
             <p style="color:green">
               {</br>
                 <strong>id:</strong> "5d9d82069bc166069f68524d",</br>
-                <strong>FavoriteMovies:</strong>[ ],</br>
                 <strong>Username:</strong> "moviebuff74",</br>
                 <strong>Password:</strong> "securepassword89",</br>
                 <strong>Email:</strong> "example123456@gmail.com",</br>
                 <strong>Birthday:</strong> "1974-02-14"</br>
+                <strong>Address:</strong> {
+                  <strong>Street:</strong> "12345 Hooligan Lane",</br>
+                  <strong>City:</strong> "Fun City"</br>
+                  <strong>State:</strong> "CA",</br>
+                },</br>
+                <strong>SavedMovies</strong> [ObjectID("12345")],</br>
               }
             </p>
           </td>
@@ -118,10 +132,16 @@
           <td id="json_obj">A JSON object holding data about the user to add, structured like:
             <p style="color: green">
               {</br>
-                <strong>Username:</strong> "Newusername123156",</br>
-                <strong>Password:</strong> "Newpassword34",</br>
-                <strong>Email:</strong> "Newemail@gmail.com",</br>
-                <strong>Birthday:</strong> "1986-12-25"</br>
+                <strong>Username:</strong> "moviebuff74",</br>
+                <strong>Password:</strong> "securepassword89",</br>
+                <strong>Email:</strong> "example123456@gmail.com",</br>
+                <strong>Birthday:</strong> "1974-02-14"</br>
+                <strong>Address:</strong> {
+                  <strong>Street:</strong> "12345 Hooligan Lane",</br>
+                  <strong>City:</strong> "Fun City"</br>
+                  <strong>State:</strong> "CA",</br>
+                },</br>
+                <strong>SavedMovies</strong> [ObjectID("12345")],</br>
               }
             </p>
           </td>
