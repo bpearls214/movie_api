@@ -19,9 +19,30 @@ app.use(bodyParser.json());
 
 app.use(morgan('common'));
 
+// authentication and authorization
 var auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
+
+// cross-origin resource sharing
+const cors = require('cors');
+app.use(cors());
+
+var allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
+app.use(cors({
+  origin: function(origin, callback){
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){ //if a specific isn't found on the list of allowed origins
+      var message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+      return callback (new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
+
+// server-side validation
+const { check, validationResult } = require('express-validator');
 
 // GET requests
 
@@ -37,7 +58,7 @@ app.get("/movies", passport.authenticate('jwt', { session: false
   });
 });
 
-// get movie info by movie title
+// GET movie info by title (with auth)
 app.get('/movies/:Title', passport.authenticate('jwt', {session: false
 }), function(req, res) {
   Movies.findOne({ Title : req.params.Title })
@@ -50,7 +71,7 @@ app.get('/movies/:Title', passport.authenticate('jwt', {session: false
   });
 });
 
-// get genre info by genre name
+// GET genre info by genre name (with auth)
 app.get('/genres/:Name', passport.authenticate('jwt', {session: false
 }), function(req, res) {
   Genres.findOne({ Name : req.params.Name })
@@ -63,7 +84,7 @@ app.get('/genres/:Name', passport.authenticate('jwt', {session: false
   });
 });
 
-// Get director info by director name
+// GET director info by director name (with auth)
 app.get('/directors/:Name', passport.authenticate('jwt', {session: false
 }), function(req, res) {
   Directors.findOne({ Name : req.params.Name })
@@ -76,7 +97,7 @@ app.get('/directors/:Name', passport.authenticate('jwt', {session: false
   });
 });
 
-// Get list of all users
+// GET list of all users (with auth)
 app.get('/users', passport.authenticate('jwt', {session: false
 }), function(req,res) {
   Users.find ()
@@ -89,7 +110,7 @@ app.get('/users', passport.authenticate('jwt', {session: false
     });
 });
 
-// Get full user info by username
+// GET user info by username (with auth)
 app.get('/users/:Username', passport.authenticate('jwt', {session: false
 }), function(req, res) {
   Users.findOne({ Username : req.params.Username })
@@ -103,7 +124,7 @@ app.get('/users/:Username', passport.authenticate('jwt', {session: false
 });
 
 // PUT requests
-// update users information
+// Update user info by username (with auth)
 app.put('/users/:Username', passport.authenticate('jwt', {session: false
 }), function (req, res) {
   Users.findOneAndUpdate({ Username : req.params.Username },
@@ -131,7 +152,7 @@ app.put('/users/:Username', passport.authenticate('jwt', {session: false
 });
 
 // POST requests
-// adds a user
+// Creates new user
 /* Anticipated JSON format:
 {
   ID : Integer,
@@ -145,7 +166,20 @@ app.put('/users/:Username', passport.authenticate('jwt', {session: false
 }
   Birthday : Date
 } */
-app.post('/users', function(req, res) {
+app.post('/users',
+  // validation logic
+  [check('Username', 'Username of at least 5 characters is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumberic characters - not allowed').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()],
+function(req, res) {
+  var errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array()});
+  }
+
+  var hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username : req.body.Username })
   .then(function(user) {
     if (user) {
@@ -154,7 +188,7 @@ app.post('/users', function(req, res) {
       Users
       .create({
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday,
         Address: {
@@ -176,7 +210,7 @@ app.post('/users', function(req, res) {
   });
 });
 
-//adds movie to favorites for user
+// Adds new movie to users Saved Movies (with auth)
 app.post('/users/:Username/Movies/:MovieID', function(req, res) {
   Users.findOneAndUpdate(
     { Username : req.params.Username },
@@ -193,7 +227,7 @@ app.post('/users/:Username/Movies/:MovieID', function(req, res) {
 });
 
 // DELETE requests
-// deletes a movie from a users favorites by username
+// DELETES Saved Movie by username (with auth)
 app.delete('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', {session: false
 }), function(req, res) {
   Users.findOneAndUpdate(
@@ -210,7 +244,7 @@ app.delete('/users/:Username/Movies/:MovieID', passport.authenticate('jwt', {ses
   })
   });
 
-// deletes a user by username
+// DELETES user by username (with auth)
 app.delete('/users/:username', passport.authenticate('jwt', {session: false
 }), function(req, res) {
   Users.findOneAndRemove({ Username: req.params.Username})
@@ -235,6 +269,7 @@ app.use(express.static('public'));
 
 
 // listen for requests
-app.listen(8080, () => {
-  console.log('Your app is listening on port 8080');
+var port = process.env.PORT || 3000;
+app.listen(port, "0.0.0.0", () => {
+  console.log('Your app is listening on port 3000');
 });
