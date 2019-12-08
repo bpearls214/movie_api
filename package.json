@@ -4,7 +4,6 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
     "start": "node index.js"
   },
   "repository": {
@@ -12,7 +11,7 @@
     "url": "git+https://github.com/bpearls214/movie_api.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "BP",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/bpearls214/movie_api/issues"

@@ -2,20 +2,24 @@ const express = require('express');
   morgan = require('morgan'),
   bodyParser = require("body-parser"),
   uuid = require("uuid");
+  mongoose = require('mongoose');
+  Models = require('./models.js');
 
 const app = express();
-
-const mongoose = require('mongoose');
-const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
 const Directors = Models.Director;
 const Genres = Models.Genre;
 
-// mongoose.connect('mongodb://localhost:27017/cineMeDB', {useNewUrlParser: true});
-mongoose.connect('mongodb+srv://CineMeAdmin:MovieAPI@cluster0-8u3vx.mongodb.net/test?retryWrites=true&w=majority', {
-  useNewUrlParser: true });
+//mongoose.connect('mongodb://localhost:27017/cineMeDB', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://CineMeAdmin:MovieAPI@cluster0-8u3vx.mongodb.net/test?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+  }
+)
+.catch(err => console.log(err.message));
 
 app.use(bodyParser.json());
 
@@ -30,7 +34,7 @@ require('./passport');
 const cors = require('cors');
 app.use(cors());
 
-var allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+var allowedOrigins = ['http://localhost:8080', 'https://cineme-api.herokuapp.com'];
 
 app.use(cors({
   origin: function(origin, callback){
@@ -47,6 +51,11 @@ app.use(cors({
 const { check, validationResult } = require('express-validator');
 
 // GET requests
+
+//welcome to page text
+app.get("/", function(req, res) {
+  res.send("Welcome to CineMe!");
+});
 
 // GET list of movies (with auth)
 app.get("/movies", passport.authenticate('jwt', { session: false
