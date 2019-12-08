@@ -13,7 +13,9 @@ const Users = Models.User;
 const Directors = Models.Director;
 const Genres = Models.Genre;
 
-mongoose.connect('mongodb://localhost:27017/cineMeDB', {useNewUrlParser: true});
+// mongoose.connect('mongodb://localhost:27017/cineMeDB', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://CineMeAdmin:MovieAPI@cluster0-8u3vx.mongodb.net/test?retryWrites=true&w=majority', {
+  useNewUrlParser: true });
 
 app.use(bodyParser.json());
 
