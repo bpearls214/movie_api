@@ -136,13 +136,20 @@ app.get('/users/:Username', passport.authenticate('jwt', {session: false
 
 // PUT requests
 // Update user info by username (with auth)
-app.put('/users/:Username', passport.authenticate('jwt', {session: false
-}), function (req, res) {
+app.put('/account/:Username', passport.authenticate('jwt', {session: false}),
+// validation logic
+[check('Username', 'Username of at least 5 characters is required').isLength({min: 5}),
+check('Username', 'Username contains non alphanumberic characters - not allowed').isAlphanumeric(),
+check('Password', 'Password is required').not().isEmpty(),
+check('Email', 'Email does not appear to be valid').isEmail()],
+
+var hashedPassword = Users.hashPassword(req.body.Password);
+function (req, res) {
   Users.findOneAndUpdate({ Username : req.params.Username },
   { $set :
     {
       Username: req.body.Username,
-      Password: req.body.Password,
+      Password: hashedPassword,
       Email: req.body.Email,
       Birthday: req.body.Birthday,
       Address: {
