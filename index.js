@@ -13,7 +13,7 @@ const Directors = Models.Director;
 const Genres = Models.Genre;
 
 //mongoose.connect('mongodb://localhost:27017/cineMeDB', {useNewUrlParser: true});
-mongoose.connect('mongodb+srv://CineMeAdmin:MovieAPI@cluster0-8u3vx.mongodb.net/cineMeDB?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://CineMeAdmin:MovieAPI@cluster0-8u3vx.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useFindAndModify: false,
     useUnifiedTopology: true
@@ -60,7 +60,7 @@ app.get("/", function(req, res) {
 // GET list of movies (with auth)
 app.get("/movies", passport.authenticate('jwt', { session: false
 }), function(req, res) {
-  Movies.find()
+  cineMeDB.movies.find()
   .then(function(movies) {
     res.status(201).json(movies);
   }).catch(function(error) {
