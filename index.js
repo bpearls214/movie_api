@@ -143,8 +143,8 @@ check('Username', 'Username contains non alphanumberic characters - not allowed'
 check('Password', 'Password is required').not().isEmpty(),
 check('Email', 'Email does not appear to be valid').isEmail()],
 
-var hashedPassword = Users.hashPassword(req.body.Password);
 function (req, res) {
+  var hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOneAndUpdate({ Username : req.params.Username },
   { $set :
     {
