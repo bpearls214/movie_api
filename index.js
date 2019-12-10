@@ -148,7 +148,7 @@ function (req, res) {
     return res.status(422).json({ errors: errors.array()});
   }
   var hashedPassword = Users.hashPassword(req.body.Password);
-  Users.findOneAndUpdate({ Username : req.params.Username },
+  Users.findOneAndUpdate({ _id : req.params.id},
   { $set :
     {
       Username: req.body.Username,
