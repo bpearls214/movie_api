@@ -134,7 +134,7 @@ app.get('/users/:Username', passport.authenticate('jwt', {session: false
 
 // PUT requests
 // Update user info by username (with auth)
-app.put('/account/:id, passport.authenticate('jwt', {session: false}),
+app.put('/account/:_id, passport.authenticate('jwt', {session: false}),
 // validation logic
 [check('Username', 'Username of at least 5 characters is required').isLength({min: 5}),
 check('Username', 'Username contains non alphanumberic characters - not allowed').isAlphanumeric(),
