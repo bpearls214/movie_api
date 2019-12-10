@@ -12,15 +12,6 @@ const Users = Models.User;
 const Directors = Models.Director;
 const Genres = Models.Genre;
 
-//mongoose.connect('mongodb://localhost:27017/cineMeDB', {useNewUrlParser: true});
-mongoose.connect('mongodb+srv://CineMeAdmin:MovieAPI@cluster0-8u3vx.mongodb.net/test?retryWrites=true&w=majority',
-  { useNewUrlParser: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-  }
-)
-.catch(err => console.log(err.message));
-
 app.use(bodyParser.json());
 
 app.use(morgan('common'));
@@ -49,6 +40,13 @@ app.use(cors({
 
 // server-side validation
 const { check, validationResult } = require('express-validator');
+
+//mongoose.connect('mongodb://localhost:27017/cineMeDB', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://CineMeAdmin:MovieAPI@cluster0-8u3vx.mongodb.net/cineMeDB?retryWrites=true&w=majority',
+  { useNewUrlParser: true
+  }
+)
+.catch(err => console.log(err.message));
 
 // GET requests
 
@@ -144,6 +142,11 @@ check('Password', 'Password is required').not().isEmpty(),
 check('Email', 'Email does not appear to be valid').isEmail()],
 
 function (req, res) {
+  var errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array()});
+  }
   var hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOneAndUpdate({ Username : req.params.Username },
   { $set :
