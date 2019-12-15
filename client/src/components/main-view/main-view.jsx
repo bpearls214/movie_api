@@ -7,7 +7,7 @@ export class MainView extends React.Component {
   constructor() {
     super();
     this.state = {
-      movies: null,
+      movie: null,
       selectedMovie: null
     };
   }
@@ -57,7 +57,7 @@ export class MainView extends React.Component {
               <MovieCard
                 key={movie._id}
                 movie={movie}
-                onClick={movie => this.onBackClick(movie)}
+                onClick={movie => this.onMovieClick(movie)}
               />
             ))
           )}
