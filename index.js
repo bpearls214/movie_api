@@ -58,7 +58,7 @@ app.get("/", function (req, res) {
 
 // GET list of all movies
 app.get("/movies", function (req, res) {
-  cineMeDB.movies.find()
+  Movies.find()
     .then(function (movies) {
       res.status(201).json(movies);
     }).catch(function (error) {
