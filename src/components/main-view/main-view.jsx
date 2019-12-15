@@ -1,22 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-
-class MainView extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <div className="main-view"></div>
-    );
-  }
-}
-
-const { /*something*/ } = this.state;
+import { MovieCard } from '../movie-card/movie-card';
+import { MovieView } from '../movie-view/movie-view';
 
 export class MainView extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      movies: null,
+      selectedMovie: null
+    };
+  }
 
   componentDidMount() {
     axios.get('<https://cineme-api.herokuapp.com/movies>')
@@ -31,19 +25,42 @@ export class MainView extends React.Component {
       });
   }
 
+  onMovieClick(movie) {
+    this.setState({
+      selectedMovie: movie
+    });
+  }
+
+  onBackClick(movie) {
+    this.setState({
+      selectedMovie: null
+    });
+  }
+
   render() {
     // if the state isn't initialized this will throw on runtime
     // before the data is initially loaded
-    const { movies } = this.state;
+    const { movies, selectedMovie } = this.state;
 
     // before the movies have been loaded 
     if (!movies) return <div className="main-view" />;
 
     return (
       <div className="main-view">
-        {movies.map(movie => (
-          <div className="movie-card" key={movie._id}>{movie.Title}</div>
-        ))}
+        {selectedMovie ? (
+          <MovieView
+            movie={selectedMovie}
+            onClick={button => this.onBackClick()}
+          />
+        ) : (
+            movies.map(movie => (
+              <MovieCard
+                key={movie._id}
+                movie={movie}
+                onClick={movie => this.onBackClick(movie)}
+              />
+            ))
+          )}
       </div>
     );
   }
