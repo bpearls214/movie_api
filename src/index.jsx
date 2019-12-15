@@ -1,5 +1,8 @@
+// client/src/index.jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import { MainView } from './components/main-view/main-view';
 
 // import statement indicating bundling './index.scss'
 import './index.scss';
@@ -7,11 +10,7 @@ import './index.scss';
 // Main component (will eventually use all the others)
 class CineMeApplication extends React.Component {
   render() {
-    return (
-      <div className="cineMe">
-        <div>Good morning</div>
-      </div>
-    );
+    return <MainView />;
   }
 }
 

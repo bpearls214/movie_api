@@ -56,10 +56,8 @@ app.get("/", function (req, res) {
   res.send("Welcome to CineMe!");
 });
 
-// GET list of movies (with auth)
-app.get("/movies", passport.authenticate('jwt', {
-  session: false
-}), function (req, res) {
+// GET list of all movies
+app.get("/movies", function (req, res) {
   cineMeDB.movies.find()
     .then(function (movies) {
       res.status(201).json(movies);
