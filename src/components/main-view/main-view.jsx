@@ -18,7 +18,7 @@ const { /*something*/ } = this.state;
 
 export class MainView extends React.Component {
 
-  coponentDidMount() {
+  componentDidMount() {
     axios.get('<https://cineme-api.herokuapp.com/movies>')
       .then(response => {
         //assign the result to the state
