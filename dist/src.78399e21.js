@@ -33557,16 +33557,16 @@ function (_React$Component) {
       if (!movie) return null;
       return _react.default.createElement("div", {
         className: "movie-view"
-      }, _react.default.createElement("img", {
-        className: "movie-poster",
-        src: movie.ImagePath
-      }), _react.default.createElement("div", {
+      }, _react.default.createElement("div", {
         className: "movie-title"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Title: "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Title)), _react.default.createElement("div", {
+      }, movie.Title)), _react.default.createElement("img", {
+        className: "movie-poster",
+        src: movie.ImageUrl
+      }), _react.default.createElement("div", {
         className: "movie-description"
       }, _react.default.createElement("span", {
         className: "label"
@@ -33578,7 +33578,7 @@ function (_React$Component) {
         className: "label"
       }, "Genre: "), _react.default.createElement("span", {
         className: "value"
-      }, director.Name)), _react.default.createElement("button", {
+      }, movie.genre)), _react.default.createElement("button", {
         onClick: function onClick() {
           return _onClick();
         }
@@ -33866,7 +33866,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54035" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58730" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
