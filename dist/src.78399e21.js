@@ -33649,7 +33649,7 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios.default.get('<https://cineme-api.herokuapp.com/movies>').then(function (response) {
+      _axios.default.get('https://cineme-api.herokuapp.com/movies').then(function (response) {
         //assign the result to the state
         _this2.setState({
           movies: response.data
