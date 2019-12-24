@@ -1,5 +1,11 @@
+// client/src/main-view/main-view.jsx 
+
 import React from 'react';
 import axios from 'axios';
+import './main-view.scss';
+
+import { LoginView } from '../login-view/login-view';
+import { RegistrationView } from "../registration-view/registration-view";
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
@@ -9,6 +15,8 @@ export class MainView extends React.Component {
     this.state = {
       movie: null,
       selectedMovie: null
+      selectedMovie: null,
+      user: null
     };
   }
 
@@ -31,6 +39,12 @@ export class MainView extends React.Component {
     });
   }
 
+  onLoggedIn(user) {
+    this.setState({
+      user
+    });
+  }
+
   onBackClick(movie) {
     this.setState({
       selectedMovie: null
@@ -40,7 +54,9 @@ export class MainView extends React.Component {
   render() {
     // if the state isn't initialized this will throw on runtime
     // before the data is initially loaded
-    const { movies, selectedMovie } = this.state;
+    const { movies, selectedMovie, user } = this.state;
+
+    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
     // before the movies have been loaded 
     if (!movies) return <div className="main-view" />;
@@ -48,18 +64,16 @@ export class MainView extends React.Component {
     return (
       <div className="main-view">
         {selectedMovie ? (
-          <MovieView
-            movie={selectedMovie}
+          <MovieView movie={selectedMovie}
             onClick={button => this.onBackClick()}
           />
-        ) : (
-            movies.map(movie => (
-              <MovieCard
-                key={movie._id}
-                movie={movie}
-                onClick={movie => this.onMovieClick(movie)}
-              />
-            ))
+        ) : (movies.map(movie => (
+          <MovieCard
+            key={movie._id}
+            movie={movie}
+            onClick={movie => this.onMovieClick(movie)}
+          />
+        ))
           )}
       </div>
     );

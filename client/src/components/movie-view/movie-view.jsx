@@ -1,4 +1,7 @@
 import React from 'react';
+import './movie-view.scss';
+import Button from 'react-bootstrap/Button';
+import { Link } from "react-router-dom";
 
 export class MovieView extends React.Component {
 
@@ -14,10 +17,9 @@ export class MovieView extends React.Component {
     if (!movie) return null;
 
     return (
-      <div className='movie-view'>
+      <div className='movie-view text-center mx-auto'>
         <div className='movie-title'>
-          <span className='label'>Title: </span>
-          <span className='value'>{movie.Title}</span>
+          <h3 className='value'>{movie.Title}</h3>
         </div>
         <img className='movie-poster' src={movie.ImageUrl} />
         <div className='movie-description'>
@@ -29,7 +31,7 @@ export class MovieView extends React.Component {
           <span className='label'>Genre: </span>
           <span className='value'>{movie.genre}</span>
         </div>
-        <button onClick={() => onClick()}>Back</button>
+        <Button variant="outline-danger" onClick={() => onClick()}>Back</Button>
       </div>
     );
   }
