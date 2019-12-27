@@ -19,17 +19,6 @@ export class MainView extends React.Component {
     };
   }
 
-  onLoggedIn(authData) {
-    console.log(authData);
-    this.setState({
-      user: authData.user.Username
-    });
-
-    localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.Username);
-    this.getMovies(authData.token);
-  }
-
   getMovies(token) {
     axios.get('https://cineme-api.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` }
@@ -58,6 +47,17 @@ export class MainView extends React.Component {
     this.setState({
       selectedMovie: movie
     });
+  }
+
+  onLoggedIn(authData) {
+    console.log(authData);
+    this.setState({
+      user: authData.user.Username
+    });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
   }
 
   onBackClick(movie) {
