@@ -38,6 +38,8 @@ app.use(cors({
   }
 }));
 
+
+
 // server-side validation
 const { check, validationResult } = require('express-validator');
 
@@ -57,7 +59,9 @@ app.get("/", function (req, res) {
 });
 
 // GET list of all movies
-app.get("/movies", function (req, res) {
+app.get("/movies", passport.authenticate('jwt', {
+  session: false
+}), function (req, res) {
   Movies.find()
     .then(function (movies) {
       res.status(201).json(movies);

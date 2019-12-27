@@ -1,10 +1,39 @@
-.cineMe {
-  color: steelblue;
+#movie-card {
+  margin-top: 15px;
+  padding: 5px;
+}
+.login-form {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  height: 100%;
+}
+.login-form {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  height: 100%;
+}
+.movie-view {
+  width: 100%;
+  max-width: 650px;
+  padding: 10px;
+  margin: auto;
+  height: 100%;
 }
 
 .movie-poster {
-  height: 300px;
-  width: auto;
+  height: auto;
+  width: 12rem;
+}
+
+.label {
+  font-weight: bold;
+}
+.cineMe {
+  color: steelblue;
 }
 
 /*# sourceMappingURL=/src.78399e21.css.map */
