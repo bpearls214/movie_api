@@ -52138,17 +52138,6 @@ function (_React$Component) {
   }
 
   _createClass(MainView, [{
-    key: "onLoggedIn",
-    value: function onLoggedIn(authData) {
-      console.log(authData);
-      this.setState({
-        user: authData.user.Username
-      });
-      localStorage.setItem('token', authData.token);
-      localStorage.setItem('user', authData.user.Username);
-      this.getMovies(authData.token);
-    }
-  }, {
     key: "getMovies",
     value: function getMovies(token) {
       var _this2 = this;
@@ -52183,6 +52172,17 @@ function (_React$Component) {
       this.setState({
         selectedMovie: movie
       });
+    }
+  }, {
+    key: "onLoggedIn",
+    value: function onLoggedIn(authData) {
+      console.log(authData);
+      this.setState({
+        user: authData.user.Username
+      });
+      localStorage.setItem('token', authData.token);
+      localStorage.setItem('user', authData.user.Username);
+      this.getMovies(authData.token);
     }
   }, {
     key: "onBackClick",
