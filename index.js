@@ -21,7 +21,7 @@ var auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
-/* // cross-origin resource sharing
+// cross-origin resource sharing
 const cors = require('cors');
 app.use(cors());
 
@@ -37,7 +37,7 @@ app.use(cors({
     return callback(null, true);
   }
 }));
-*/
+
 
 
 

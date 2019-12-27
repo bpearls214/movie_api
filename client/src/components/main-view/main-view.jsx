@@ -32,10 +32,10 @@ export class MainView extends React.Component {
 
   getMovies(token) {
     axios.get('https://cineme-api.herokuapp.com/movies', {
-      headers: { Authorization: 'Bearer ${token}' }
+      headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        this, setState({
+        this.setState({
           movies: response.data
         });
       })
@@ -45,16 +45,13 @@ export class MainView extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('https://cineme-api.herokuapp.com/movies')
-      .then(response => {
-        //assign the result to the state
-        this.setState({
-          movies: response.data
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
       });
+      this.getMovies(accessToken);
+    }
   }
 
   onMovieClick(movie) {
