@@ -48759,9 +48759,9 @@ function LoginView(props) {
   return _react.default.createElement(_reactBootstrap.Form, {
     className: "login-form"
   }, _react.default.createElement(_reactBootstrap.Form.Group, {
-    controlId: "formBasicEmail"
+    controlId: "formBasicUsername"
   }, _react.default.createElement(_reactBootstrap.Form.Label, null, " Username: "), _react.default.createElement(_reactBootstrap.Form.Control, {
-    type: "username",
+    type: "text",
     placeholder: "Enter Username",
     value: username,
     onChange: function onChange(e) {
@@ -52155,10 +52155,10 @@ function (_React$Component) {
 
       _axios.default.get('https://cineme-api.herokuapp.com/movies', {
         headers: {
-          Authorization: 'Bearer ${token}'
+          Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        _this2, setState({
+        _this2.setState({
           movies: response.data
         });
       }).catch(function (error) {
@@ -52168,16 +52168,14 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this3 = this;
+      var accessToken = localStorage.getItem('token');
 
-      _axios.default.get('https://cineme-api.herokuapp.com/movies').then(function (response) {
-        //assign the result to the state
-        _this3.setState({
-          movies: response.data
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
         });
-      }).catch(function (error) {
-        console.log(error);
-      });
+        this.getMovies(accessToken);
+      }
     }
   }, {
     key: "onMovieClick",
@@ -52196,7 +52194,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       // if the state isn't initialized this will throw on runtime
       // before the data is initially loaded
@@ -52206,7 +52204,7 @@ function (_React$Component) {
           user = _this$state.user;
       if (!user) return _react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
-          return _this4.onLoggedIn(user);
+          return _this3.onLoggedIn(user);
         }
       }); // before the movies have been loaded 
 
@@ -52218,14 +52216,14 @@ function (_React$Component) {
       }, selectedMovie ? _react.default.createElement(_movieView.MovieView, {
         movie: selectedMovie,
         onClick: function onClick(button) {
-          return _this4.onBackClick();
+          return _this3.onBackClick();
         }
       }) : movies.map(function (movie) {
         return _react.default.createElement(_movieCard.MovieCard, {
           key: movie._id,
           movie: movie,
           onClick: function onClick(movie) {
-            return _this4.onMovieClick(movie);
+            return _this3.onMovieClick(movie);
           }
         });
       }));
