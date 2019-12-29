@@ -16,14 +16,14 @@ app.use(bodyParser.json());
 
 app.use(morgan('common'));
 
+// cross-origin resource sharing
+const cors = require('cors');
+app.use(cors());
+
 // authentication and authorization
 var auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
-
-// cross-origin resource sharing
-const cors = require('cors');
-app.use(cors());
 
 
 var allowedOrigins = ['http://localhost:8080', 'https://cineme-api.herokuapp.com', 'http://localhost:1234'];
