@@ -20,12 +20,6 @@ app.use(morgan('common'));
 const cors = require('cors');
 app.use(cors());
 
-// authentication and authorization
-var auth = require('./auth')(app);
-const passport = require('passport');
-require('./passport');
-
-
 var allowedOrigins = ['http://localhost:8080', 'https://cineme-api.herokuapp.com', 'http://localhost:1234'];
 
 app.use(cors({
@@ -39,9 +33,10 @@ app.use(cors({
   }
 }));
 
-
-
-
+// authentication and authorization
+var auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
 
 // server-side validation
 const { check, validationResult } = require('express-validator');
